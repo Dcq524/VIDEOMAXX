@@ -20,7 +20,7 @@ namespace VIDEOMAXX
             WriteLine("\t\t\t\t\t0. Salir");
             WriteLine("DAVID");
             WriteLine("\t\t\t\t\t-----------------------------------");
-            WriteLine("\t\t\t\t\t[             VIDEOMAX            ]");
+            WriteLine("\t\t\t\t\t[             VIDEOMAXXIMUS            ]");
             WriteLine("\t\t\t\t\t-----------------------------------");
             WriteLine("\n\t\t\t\t\tOpciones: ");
             WriteLine("\t\t\t\t\t1. Buscar peliculas");

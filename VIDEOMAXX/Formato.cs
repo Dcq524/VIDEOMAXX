@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace Videomax
 {
-    class Genero
+    class Formato
     {
-        public string Id { get; }
+        public int Id { get; } //Propiedad, Solo lectura
 
-        public string Descripcion { get; }
+        public string Descripcion { get; } //Propiedad, Solo lectura
 
-        public Genero(string id, string descripcion)
+        public decimal Precio { get; } //Propiedad,Solo lectura
+
+        public Formato(int id, string descripcion, decimal precio) //Constructor
         {
             Id = id;
             Descripcion = descripcion;
+            Precio = precio;
         }
     }
 }

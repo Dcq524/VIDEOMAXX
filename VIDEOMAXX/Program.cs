@@ -21,7 +21,6 @@ namespace Videomax
             int opcion = 0;
             do
             {
-
                 Clear();
                 WriteLine("\t\t\t\t\t-----------------------------------");
                 WriteLine("\t\t\t\t\t[             VIDEOMAX            ]");

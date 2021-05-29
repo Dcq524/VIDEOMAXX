@@ -186,12 +186,25 @@ namespace Videomax
         {
             return peliculas.Exists(p => p.Id == peliculaId);
         }
-
         public Pelicula GetPelicula(int peliculaId)
         {
             return peliculas.Find(p => p.Id == peliculaId);
         }
 
+        public bool VerifyTitulo(string titulo )
+        {
+            
+            return peliculas.Exists( p => p.Titulo.Contains(titulo)); 
+        }
+        
+        public Pelicula GetTitulo(string titulo)
+        {
+            
+            return peliculas.Find(p => p.Titulo == titulo);
+        }
+
+       
+       
         public void AgregarInventario(Pelicula pelicula, int dvd, int blueray, int uhdBlueray)
         {
             inventarios.Find(p => pelicula.Id == pelicula.Id && p.FormatoId == 0).Cantidad += dvd;

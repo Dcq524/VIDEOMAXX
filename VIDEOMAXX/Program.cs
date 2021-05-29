@@ -21,10 +21,9 @@ namespace Videomax
             int opcion = 0;
             do
             {
-
                 Clear();
                 WriteLine("\t\t\t\t\t-----------------------------------");
-                WriteLine("\t\t\t\t\t[             VIDEOMAX xx           ]");
+                WriteLine("\t\t\t\t\t[             vidiomax            ]");
                 WriteLine("\t\t\t\t\t-----------------------------------");
                 WriteLine("\n\t\t\t\t\tOpciones: ");
                 WriteLine("\t\t\t\t\t1. Buscar peliculas");

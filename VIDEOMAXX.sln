@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VIDEOMAXX", "VIDEOMAXX\VIDEOMAXX.csproj", "{0AF1DCB6-2402-47DB-A25B-BF3F28110F69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Videomax", "VIDEOMAXX\Videomax.csproj", "{0AF1DCB6-2402-47DB-A25B-BF3F28110F69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

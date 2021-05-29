@@ -4,9 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VIDEOMAXX
+namespace Videomax
 {
     class Genero
     {
+        public string Id { get; }
+
+        public string Descripcion { get; }
+
+        public Genero(string id, string descripcion)
+        {
+            Id = id;
+            Descripcion = descripcion;
+        }
     }
 }

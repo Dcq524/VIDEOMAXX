@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VIDEOMAXX
 {
-    class Superclase
+    class Formato
     {
     }
 }

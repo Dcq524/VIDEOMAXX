@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Videomax
 {
+
     class Formato
     {
         public int Id { get; } //Propiedad, Solo lectura

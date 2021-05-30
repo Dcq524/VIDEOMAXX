@@ -23,7 +23,7 @@ namespace Videomax
             {
                 Clear();
                 WriteLine("\t\t\t\t\t-----------------------------------");
-                WriteLine("\t\t\t\t\t[             vidiomax            ]");
+                WriteLine("\t\t\t\t\t[             videomax            ]");
                 WriteLine("\t\t\t\t\t-----------------------------------");
                 WriteLine("\n\t\t\t\t\tOpciones: ");
                 WriteLine("\t\t\t\t\t1. Buscar peliculas");
@@ -181,7 +181,7 @@ namespace Videomax
         {
 
             Clear();
-            WriteLine("\n**** GENEROS ****");
+            WriteLine("\n**** FORMATOS ****");
 
             for (int i = 0; i < formatos.Count; ++i)
             {
@@ -191,7 +191,7 @@ namespace Videomax
 
 
         }
-       
+
         static void SubMenuInventario()
         {
             catalogo = new Catalogo();
@@ -225,18 +225,45 @@ namespace Videomax
                         WriteLine(" a) ID de película");
                         WriteLine(" b) Texto o parte del texto");
                         char opcion1 = ReadLine().Trim().ToUpper()[0];
-                        
+
                         if (opcion1 == 'A')
-                        {       int peliculaID = -1;
-                                Write("Escribe el ID (6 dígitos): ");
-                                peliculaID = Convert.ToInt32(ReadLine());
+                        {
+                            int peliculaID = -1;
+                            Write("Escribe el ID (6 dígitos): ");
+                            peliculaID = Convert.ToInt32(ReadLine());
                             if (catalogo.VerifyPelicula(peliculaID))
                             {
                                 Pelicula pelicula = catalogo.GetPelicula(peliculaID);
-                                
-                                SubmenuAgregarInventario();
-                               
-                                
+                                //Preguntar el formato
+                                WriteLine("\nEscoge el formato de la película");
+                                WriteLine("1. DVD \n 2. BlueRay \n 3. hdBlueray");
+                                int EscogerFormato = Convert.ToInt32(ReadLine());
+
+                                switch (EscogerFormato)
+                                {
+                                    case 1:
+                                        WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
+                                        int dvd = Convert.ToInt32(ReadLine());
+                                        catalogo.AgregarInventario(pelicula, dvd, 0, 0); //Enviar la cantidad 
+                                        break;
+                                    case 2:
+                                        WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
+                                        int blueray = Convert.ToInt32(ReadLine());
+                                        catalogo.AgregarInventario(pelicula, 0, blueray, 0); //Enviar la cantidad 
+                                        break;
+                                    case 3:
+                                        WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
+                                        int uhdBlueray = Convert.ToInt32(ReadLine());
+                                        catalogo.AgregarInventario(pelicula, 0, 0, uhdBlueray); //Enviar la cantidad 
+                                        break;
+                                    default:
+                                        WriteLine(" FORMATO INVÁLIDO ");
+                                        ReadKey();
+                                        break;
+                                }
+
+
+
                             }
                             else
                             {
@@ -246,28 +273,58 @@ namespace Videomax
                         }
                         else if (opcion1 == 'B')
                         {
-                            
+
                             WriteLine("Escriba el Titulo de la pelicula o parte de ella: ");
-                            string nombrepelicula = ReadLine().Trim().ToUpper();
-                            
-                            Pelicula titulo = nombrepelicula;
+                            string nombrepelicula = ReadLine();
                             
                             if (catalogo.VerifyTitulo(nombrepelicula))
                             {
-                                WriteLine("Exist");
+                                Pelicula titulo = catalogo.GetTitulo(nombrepelicula);
+                                WriteLine($"La película encontrada es {titulo}");
+                                WriteLine("\nEscoge el formato de la película");
+                                WriteLine("1. DVD \n 2. BlueRay \n 3. hdBlueray");
+                                int EscogerFormato = Convert.ToInt32(ReadLine());
+                                switch (EscogerFormato)
+                                {
+                                    case 1:
+                                        WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
+                                        int dvd = Convert.ToInt32(ReadLine());
+                                        catalogo.AgregarInventario(titulo, dvd, 0, 0); //Enviar la cantidad 
+                                        break;
+                                    case 2:
+                                        WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
+                                        int blueray = Convert.ToInt32(ReadLine());
+                                        catalogo.AgregarInventario(titulo, 0, blueray, 0); //Enviar la cantidad 
+                                        break;
+                                    case 3:
+                                        WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
+                                        int uhdBlueray = Convert.ToInt32(ReadLine());
+                                        catalogo.AgregarInventario(titulo, 0, 0, uhdBlueray); //Enviar la cantidad 
+                                        break;
+                                    default:
+                                        WriteLine(" FORMATO INVÁLIDO ");
+                                        ReadKey();
+                                        break;
+                                }
                             }
-
+                            else
+                            {
+                                WriteLine("\nPELÍCULA NO ENCONTRADA");
+                                ReadKey();
+                            }
                         }
-                         else
+                        else
                         {
-                            WriteLine("nop");
+                            WriteLine("OPCIÓN NO IMPLEMENTADA");
                         }
-                        
+
                         break;
 
 
                     case 2:
-
+                        WriteLine("LISTA DE PELÍCULAS FALTANTES");
+                        PrintMissing(catalogo.FindPeliculas(OpcionBusqueda.Missing));
+                        WriteLine("Presione cualquier tecla para regresar");
                         ReadKey();
                         break;
                     default:
@@ -288,38 +345,15 @@ namespace Videomax
             WriteLine("*****LISTADO DE COMPRAS*****");
 
         }
-        static void SubmenuAgregarInventario()
+        static void PrintMissing(List<PeliculaEnInventario> missing)
         {
-            Pelicula pelicula;
-            //Preguntar el formato
-            WriteLine("\nEscoge el formato de la prlícula");
-            WriteLine("1. DVD \n 2. BlueRay \n 3. hdBlueray");
-            int EscogerFormato = Convert.ToInt32(ReadLine());
-
-            switch (EscogerFormato)
+            
+            foreach (PeliculaEnInventario p in missing)
             {
-                case 1:
-                    WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
-                    int dvd = Convert.ToInt32(ReadLine());
-                    catalogo.AgregarInventario(pelicula, dvd, 0, 0); //Enviar la cantidad 
-                    break;
-                case 2:
-                    WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
-                    int blueray = Convert.ToInt32(ReadLine());
-                    catalogo.AgregarInventario(pelicula, 0, blueray, 0); //Enviar la cantidad 
-                    break;
-                case 3:
-                    WriteLine("Cantidad de artículos: "); //preguntar la cantidad 
-                    int uhdBlueray = Convert.ToInt32(ReadLine());
-                    catalogo.AgregarInventario(pelicula, 0, 0, uhdBlueray); //Enviar la cantidad 
-                    break;
-                default:
-                    WriteLine(" FORMATO INVÁLIDO ");
-                    ReadKey();
-                    break;
+                WriteLine($"{p.Id} - {p.Titulo} - {p.Genero}.({p.Año}).   [VD:{p.DVD}, BR:{p.BlueRay}, UHDBR:{p.UHDBlueRay}].");
             }
+            ReadKey();
         }
+
     }
-
-
 }

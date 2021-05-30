@@ -8,7 +8,7 @@ using Util;  //ESTO ES PARA USAR EL EASY FILE
 namespace Videomax
 
 {//Esto estaba en el main, pero lo necesita catalogo para la función findPeliculas
-    public enum OpcionBusqueda { Todas = 1, PorGenero, PorFormato, PorIntervaloDeAños }
+    public enum OpcionBusqueda { Todas = 1, PorGenero, PorFormato, PorIntervaloDeAños, Missing }
     //Para el compilador, la enumeracion es un entero, cada dato empieza con una posición que es un número
 
     class Catalogo
@@ -72,7 +72,8 @@ namespace Videomax
                                                          string generoId = " ",
                                                          int formatoId = 0,
                                                          int añoMinimo = -1,
-                                                         int añoMaximo = -1)
+                                                         int añoMaximo = -1,
+                                                         int cantidad  = 0)
         {
             switch (opcion)
             {
@@ -166,12 +167,37 @@ namespace Videomax
                                     )
                                 );
                         }
+                  
 
                         return peliculasEnInventario;
                     }
+                case OpcionBusqueda.Missing:
+                    {
+                        List<PeliculaEnInventario> peliculasEnInventario = new List<PeliculaEnInventario>();
+
+                        foreach (Inventario i in inventarios.FindAll(i => i.Cantidad == cantidad))
+                        {
+                            Pelicula pelicula = peliculas.Find(p => i.PeliculaId == p.Id);
+                            peliculasEnInventario.Add(new PeliculaEnInventario(
+                                  pelicula.Id, pelicula.GeneroId, pelicula.Titulo, pelicula.Año,
+                                  generos.Find(g => g.Id == pelicula.GeneroId).Descripcion,
+                                      formatoId == 0 ? i.Cantidad : 0,
+                                      formatoId == 1 ? i.Cantidad : 0,
+                                      formatoId == 2 ? i.Cantidad : 0)
+
+
+                                      );
+
+                               
+                        }
+
+
+                        return peliculasEnInventario;
+                    }
+
                 default:
                     throw new InvalidOperationException("Opcion invalida");
-
+                    
             }
 
 
@@ -182,6 +208,7 @@ namespace Videomax
         //Copia de la lista
         public List<Formato> GetAllFormatos() => new List<Formato>(formatos);
 
+        
         public bool VerifyPelicula(int peliculaId)
         {
             return peliculas.Exists(p => p.Id == peliculaId);
@@ -214,6 +241,7 @@ namespace Videomax
 
             EasyFile<Inventario>.SaveDataToFile("inventario.txt", new string[] { "PeliculaId", "FormatoId", "Cantidad" }, inventarios);
         }
+       
 
     }
 }

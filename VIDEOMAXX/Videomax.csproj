@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Catalogo.cs" />
+    <Compile Include="Compras.cs" />
     <Compile Include="EasyFile.cs" />
     <Compile Include="Formato.cs" />
     <Compile Include="Genero.cs" />

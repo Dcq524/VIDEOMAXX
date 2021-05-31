@@ -201,9 +201,9 @@ namespace Videomax
             do
             {
                 Clear();
-                WriteLine("\t\t\t\t\t-----------------------------------");
-                WriteLine("\t\t\t\t\t[             VIDEOMAX            ]");
-                WriteLine("\t\t\t\t\t-----------------------------------");
+                WriteLine("\t\t\t\t\t-------------------------------------");
+                WriteLine("\t\t\t\t\t||             VIDEOMAX            ||");
+                WriteLine("\t\t\t\t\t-------------------------------------");
                 WriteLine("\t\t\t\t\t             INVENTARIO            ");
                 WriteLine("\n\t\t\t\t\tEliga una opción: ");
                 WriteLine("\t\t\t\t\t1. Arribo de unidades");
@@ -354,19 +354,19 @@ namespace Videomax
         static void SubmenuVentas()
         {
             Clear();
-            WriteLine("***************************************");
-            WriteLine("*                Ventas               *");
-            WriteLine("***************************************");
+            WriteLine("\t\t\t\t\t-------------------------------------");
+            WriteLine("\t\t\t\t\t||             VIDEOMAX            ||");
+            WriteLine("\t\t\t\t\t-------------------------------------");
+            WriteLine("\t\t\t\t\t               VENTAS                  ");
             int op = -1;
             List<Compras> pelis = new List<Compras>();
             List<Inventario> listAux = new List<Inventario>();
             do
             {
-                Clear();
-                WriteLine("\n\t Lista de compras actual");
+                //Clear();
+                WriteLine("\n\t\t\t\t\t Lista de compras actual");
                 MostrarListadeCompras(pelis);
-                WriteLine("\n***************************************\n");
-
+                
                 int peliculaId = ObtenerPeliId();
                 string peliculaf = ObtenerPeliFormato();
                 int cantidad = ObtenerCantidad();
@@ -411,9 +411,9 @@ namespace Videomax
                     pelis.Add(catalogo.AgregarPelicula(peliculaId, peliculaf, cantidad));
                     Clear();
                     WriteLine();
-                    WriteLine("\t1. Seguir agragando peliculas a la lista actual");
-                    WriteLine("\t2. Finalizar compra");
-                    WriteLine("\t0. Cancelar compra");
+                    WriteLine("\\t\t\t\t\t1. Seguir agragando peliculas a la lista actual");
+                    WriteLine("\t\t\t\t\t2. Finalizar compra");
+                    WriteLine("\t\t\t\t\t0. Cancelar compra");
                     Write("Elige una opcion: ");
                     op = Convert.ToInt32(ReadLine());
 
@@ -439,13 +439,13 @@ namespace Videomax
 
         static int ObtenerPeliId()
         {
-            WriteLine("Ingrese el codigo de la pelicula que desea comprar: ");
+            WriteLine("\nIngrese el codigo de la pelicula que desea comprar: ");
             int peliId = Convert.ToInt32(ReadLine());
 
             while (!catalogo.ValidarCodigo(peliId))
             {
                 Clear();
-                WriteLine("Codigo invalido. Por favor ingrese un codigo valido: ");
+                WriteLine("\nCodigo invalido. Por favor ingrese un codigo valido: ");
                 peliId = Convert.ToInt32(ReadLine());
             }
 
@@ -454,13 +454,13 @@ namespace Videomax
 
         static string ObtenerPeliFormato()
         {
-            WriteLine("Ingrese el formato de la pelicula que desea comprar: ");
+            WriteLine("\nIngrese el formato de la pelicula que desea comprar: (DVD, Blue-Ray, Ultra HD Blu-Ray)");
             string pelif = ReadLine();
 
             while (!catalogo.ValidarFormato(pelif))
             {
                 Clear();
-                WriteLine("Formato invalido. Por favor ingrese un formato valido: ");
+                WriteLine("\nFormato invalido. Por favor ingrese un formato valido: ");
                 pelif = ReadLine();
             }
 
@@ -469,13 +469,13 @@ namespace Videomax
 
         static int ObtenerCantidad()
         {
-            WriteLine("Ingrese la cantidad de peliculas que desea comprar: ");
+            WriteLine("\nIngrese la cantidad de peliculas que desea comprar: ");
             int c = Convert.ToInt32(ReadLine());
 
             while (c <= 0)
             {
                 Clear();
-                WriteLine("Cantidad invalida. Por favor ingrese una cantidad correcta: ");
+                WriteLine("\nCantidad invalida. Por favor ingrese una cantidad correcta: ");
                 c = Convert.ToInt32(ReadLine());
             }
 
@@ -486,32 +486,36 @@ namespace Videomax
         {
             if (pelis.Count == 0)
             {
-                WriteLine("\nSu lista de compras esta vacia");
+                WriteLine("\n\t\t\t\t\tSu lista de compras esta vacia");
             }
             else
             {
-                pelis.ForEach(p => WriteLine($"{p.pelicula.Titulo} - {p.formato.Descripcion}"));
+                pelis.ForEach(p => WriteLine($"\t\t\t\t\t{p.pelicula.Titulo} - {p.formato.Descripcion}"));
             }
         }
         static void FinalizarCompra(List<Compras> pelis, List<Inventario> listAux)
         {
             Clear();
+            WriteLine("\t\t\t\t\t-------------------------------------");
+            WriteLine("\t\t\t\t\t||             VIDEOMAX            ||");
+            WriteLine("\t\t\t\t\t-------------------------------------");
+            WriteLine("\t\t\t\t\t                NOTA                 ");
             Write("\n\tPeliculas seleccionadas\n\n");
             pelis.ForEach(p => WriteLine($"{p.pelicula.Titulo} - {p.formato.Descripcion} - {p.cantidad}"));
 
-            double Total = 0;
+            decimal Total = 0;
 
             pelis.ForEach(p =>
-            Total += p.cantidad * p.formato.Precio);
+            Total += Convert.ToDecimal(p.cantidad) * p.formato.Precio);
 
             WriteLine();
-            WriteLine($"\tEl total de su compra es: {Total}");
-            Write("\nPulse cualquier tecla para confirmar: ");
+            WriteLine($"\n\tEl total de su compra es: {Total}");
+            Write("\n\nPulse cualquier tecla para confirmar: ");
             ReadKey();
 
             catalogo.ActualizarInventario(listAux);
 
-            Write("\nSu compra ha sido realizada con exito");
+            Write("\n\t\t\t\t\t ¡Su compra ha sido realizada con exito!");
             ReadKey();
         }
 

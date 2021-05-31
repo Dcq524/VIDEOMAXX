@@ -99,7 +99,7 @@ namespace Videomax
                     break;
 
                 case searchmovie.PorIntervaloDeAños:
-                INTERVAL: Clear();
+                INTERVAL: 
                     int añoMinimo = -1;
                     Write("\nDesea especificar un año minimo [s/n]");
                     if (ReadLine().Trim().ToUpper()[0] == 'S')

@@ -156,15 +156,16 @@ namespace Videomax
 
                         foreach (Inventario i in inventarios.FindAll(i => i.Cantidad == cantidad))
                         {
+                            
                             Pelicula pelicula = peliculas.Find(p => i.PeliculaId == p.Id);
+
                             peliculasEnInventario.Add(new PeliculaEnInventario(
                                   pelicula.Id, pelicula.GeneroId, pelicula.Titulo, pelicula.Año,
                                   generos.Find(g => g.Id == pelicula.GeneroId).Descripcion,
-                                      formatoId == 0 ? i.Cantidad : 0,
-                                      formatoId == 1 ? i.Cantidad : 0,
-                                      formatoId == 2 ? i.Cantidad : 0)
-
-
+                                       
+                                       inventarios.Find(d => d.PeliculaId == pelicula.Id && d.FormatoId == 0).Cantidad,
+                                       inventarios.Find(b => b.PeliculaId == pelicula.Id && b.FormatoId == 1).Cantidad,
+                                       inventarios.Find(u => u.PeliculaId == pelicula.Id && u.FormatoId == 2).Cantidad)
                                       );
 
                                
@@ -188,10 +189,7 @@ namespace Videomax
         public List<Formato> GetAllFormatos() => new List<Formato>(formatos);
 
         
-        public bool VerifyPelicula(int peliculaId)
-        {
-            return peliculas.Exists(p => p.Id == peliculaId);
-        }
+        
         public Pelicula GetPelicula(int peliculaId)
         {
             return peliculas.Find(p => p.Id == peliculaId);
@@ -205,26 +203,26 @@ namespace Videomax
 
         public Pelicula GetTitulo(string titulo)
         {
-            Pelicula match = new Pelicula(0,"0","0",0);
 
-            for (int i = 0; i < peliculas.Count; i++)
+            Pelicula match = new Pelicula(0, "0", "0", 0);
+            
+            for(int i = 0; i< peliculas.Count; i++)
             {
                 if (peliculas[i].Titulo.Contains(titulo))
                 {
-                    match = new Pelicula(peliculas[i].Id, 
-                        peliculas[i].GeneroId, peliculas[i].Titulo, peliculas[i].Año);
+                    match = new Pelicula(peliculas[i].Id,
+                        peliculas[i].GeneroId,peliculas[i].Titulo,peliculas[i].Año);
                 }
             }
-            
-            return match;
-            //return peliculas.Find(p => p.Titulo == titulo);
+            return match ;
+
         }
+
        
        
         public void AgregarInventario(Pelicula pelicula, int dvd, int blueray, int uhdBlueray)
         {
             inventarios.Find(p => pelicula.Id == pelicula.Id && p.FormatoId == 0).Cantidad += dvd;
-
             inventarios.Find(p => pelicula.Id == pelicula.Id && p.FormatoId == 1).Cantidad += blueray;
             inventarios.Find(p => pelicula.Id == pelicula.Id && p.FormatoId == 2).Cantidad += uhdBlueray;
 
@@ -282,4 +280,4 @@ namespace Videomax
         }
     }
 }
-//funcion lamda es una manera de escribir una función lo más corta posible
+

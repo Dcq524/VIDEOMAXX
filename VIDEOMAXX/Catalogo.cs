@@ -202,25 +202,19 @@ namespace Videomax
 
         public Pelicula GetTitulo(string titulo)
         {
-            //int id;
-            //string generoid;
-            //string titulo1;
-            //int anio;
-            //for (int i = 0; i < peliculas.Count; i++)
-            //{
+            Pelicula match = new Pelicula(0,"0","0",0);
 
-            //    if (peliculas[i].Titulo.Contains(titulo))  ;
-            //    {
-            //        id = peliculas[i].Id;
-            //        generoid = peliculas[i].GeneroId;
-            //        titulo1 = peliculas[i].Titulo;
-            //        anio = peliculas[i].Año;
-
-            //    }
-            //}
-            //Pelicula y = new Pelicula(id, generoid, titulo1, anio);
-            //return y;
-            return peliculas.Find(p => p.Titulo == titulo);
+            for (int i = 0; i < peliculas.Count; i++)
+            {
+                if (peliculas[i].Titulo.Contains(titulo))
+                {
+                    match = new Pelicula(peliculas[i].Id, 
+                        peliculas[i].GeneroId, peliculas[i].Titulo, peliculas[i].Año);
+                }
+            }
+            
+            return match;
+            //return peliculas.Find(p => p.Titulo == titulo);
         }
        
        

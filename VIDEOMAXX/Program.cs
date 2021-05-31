@@ -281,7 +281,7 @@ namespace Videomax
                             if (catalogo.VerifyTitulo(nombrepelicula))
                             {
                                 Pelicula titulo = catalogo.GetTitulo(nombrepelicula);
-                                WriteLine($"La película encontrada es {titulo}");
+                                WriteLine($"La película encontrada es {titulo.Titulo}");
                                 WriteLine("\nEscoge el formato de la película");
                                 WriteLine("1. DVD \n 2. BlueRay \n 3. hdBlueray");
                                 int EscogerFormato = Convert.ToInt32(ReadLine());

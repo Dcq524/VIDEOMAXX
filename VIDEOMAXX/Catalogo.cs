@@ -215,11 +215,12 @@ namespace Videomax
             //        generoid = peliculas[i].GeneroId;
             //        titulo1 = peliculas[i].Titulo;
             //        anio = peliculas[i].Año;
-                    
+
             //    }
             //}
             //Pelicula y = new Pelicula(id, generoid, titulo1, anio);
             //return y;
+            return peliculas.Find(p => p.Titulo == titulo);
         }
        
        

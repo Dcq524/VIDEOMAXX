@@ -135,7 +135,7 @@ namespace Videomax
                     int formatoIndice = Convert.ToInt32(ReadLine());
 
 
-                    OpcionMostrarTodo(catalogo.FindPeliculas(searchmovie.PorFormato, formatoId: formatos[formatoIndice].Id));
+                    OpcionMostrarFormato(catalogo.FindPeliculas(searchmovie.PorFormato, formatoId: formatos[formatoIndice].Id), formatoIndice);
                     break;
 
                 default:
@@ -156,6 +156,49 @@ namespace Videomax
                 {
                     WriteLine($"{p.Id} - {p.Titulo} - {p.Genero}.({p.Año}).   [DVD:{p.DVD}, BR:{p.BlueRay}, UHDBR:{p.UHDBlueRay}].");
                 }
+
+            }
+            else
+            {
+                WriteLine(" ¡No se encontraron resultados!");
+            }
+
+            ReadKey();
+
+
+        }
+
+        static void OpcionMostrarFormato(List<PeliculaEnInventario> peliculas, int formatoIndice)
+        {
+            WriteLine("\n**** RESULTADO DE BÚSQUEDA ****");
+
+            if (peliculas.Count > 0)
+            {
+                switch (formatoIndice)
+                {
+                    case 0:
+                        foreach (var p in peliculas)
+                        {
+                            WriteLine($"{p.Id} - {p.Titulo} - {p.Genero}.({p.Año}).   [DVD Disponibles:{p.DVD}].");
+                        }
+                        break;
+                    case 1:
+                        foreach (var p in peliculas)
+                        {
+                            WriteLine($"{p.Id} - {p.Titulo} - {p.Genero}.({p.Año}).   [BR Disponibles:{p.BlueRay}].");
+                        }
+                        break;
+                    case 2:
+                        foreach (var p in peliculas)
+                        {
+                            WriteLine($"{p.Id} - {p.Titulo} - {p.Genero}.({p.Año}).   [UHDBR Disponibles:{p.UHDBlueRay}].");
+                        }
+                        break;
+                    default:
+                        WriteLine("\n¡OPCIÓN NO VÁLIDA!");
+                        break;
+                }
+
 
             }
             else

@@ -111,15 +111,18 @@ namespace Videomax
                                  new List<PeliculaEnInventario>();
                         foreach (Inventario i in inventarios.FindAll(i => i.FormatoId == formatoId))
                         {
-                            Pelicula pelicula = peliculas.Find(p => p.Id == i.PeliculaId);
-                            peliculasEnInventario.Add(
-                              new PeliculaEnInventario(
-                                  pelicula.Id, pelicula.GeneroId, pelicula.Titulo, pelicula.Año,
-                                  generos.Find(g => g.Id == pelicula.GeneroId).Descripcion,     
-                                      formatoId == 0 ? i.Cantidad : 0,
-                                      formatoId == 1 ? i.Cantidad : 0,
-                                      formatoId == 2 ? i.Cantidad : 0)
-                              );
+                            if (i.Cantidad != 0)
+                            {
+                                Pelicula pelicula = peliculas.Find(p => p.Id == i.PeliculaId);
+                                peliculasEnInventario.Add(
+                                  new PeliculaEnInventario(
+                                      pelicula.Id, pelicula.GeneroId, pelicula.Titulo, pelicula.Año,
+                                      generos.Find(g => g.Id == pelicula.GeneroId).Descripcion,
+                                          formatoId == 0 ? i.Cantidad : 0,
+                                          formatoId == 1 ? i.Cantidad : 0,
+                                          formatoId == 2 ? i.Cantidad : 0)
+                                  );
+                            }
                         }
                         return peliculasEnInventario;
                     }

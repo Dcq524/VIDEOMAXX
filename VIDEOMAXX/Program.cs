@@ -12,7 +12,7 @@ namespace Videomax
 
     class Program
     {
-        static Catalogo catalogo; //NECESITA EL static
+        static Catalogo catalogo; 
 
         static void Main(string[] args)
         {
@@ -54,7 +54,7 @@ namespace Videomax
 
                         break;
                 }
-                WriteLine("Presione cualquier tecla para regresar al menú principal");
+                WriteLine("\nPresione cualquier tecla para regresar al menú principal");
                 WriteLine("Presione 0 para salir del programa");
                 ReadKey();
             } while (opcion != 0);
@@ -94,7 +94,7 @@ namespace Videomax
                     Write("\n¿De que género le gustaría?:");
                     int generoIndice = Convert.ToInt32(ReadLine());
 
-
+                   
                     OpcionMostrarTodo(catalogo.FindPeliculas(searchmovie.PorGenero, generos[generoIndice].Id));
                     break;
 
@@ -121,7 +121,7 @@ namespace Videomax
                         ReadKey();
                         goto INTERVAL;
                     }
-
+                    
                     OpcionMostrarTodo(catalogo.FindPeliculas(searchmovie.PorIntervaloDeAños, añoMinimo: añoMinimo, añoMaximo: añoMaximo));
                     ReadKey();
 
@@ -134,7 +134,7 @@ namespace Videomax
                     Write("\n¿Qué tipo de formato desea?\n");
                     int formatoIndice = Convert.ToInt32(ReadLine());
 
-
+                    
                     OpcionMostrarTodo(catalogo.FindPeliculas(searchmovie.PorFormato, formatoId: formatos[formatoIndice].Id));
                     break;
 
@@ -152,6 +152,11 @@ namespace Videomax
 
             if (peliculas.Count > 0)
             {
+                Clear();
+                WriteLine("\t\t\t\t\t-------------------------------------");
+                WriteLine("\t\t\t\t\t||             VIDEOMAX            ||");
+                WriteLine("\t\t\t\t\t-------------------------------------");
+                WriteLine("\t\t\t\t\t          BUSCAR PELÍCULAS\n         ");
                 foreach (var p in peliculas)
                 {
                     WriteLine($"{p.Id} - {p.Titulo} - {p.Genero}.({p.Año}).   [DVD:{p.DVD}, BR:{p.BlueRay}, UHDBR:{p.UHDBlueRay}].");
@@ -161,9 +166,7 @@ namespace Videomax
             else
             {
                 WriteLine(" ¡No se encontraron resultados!");
-            }
-
-            ReadKey();
+            }                    
 
 
         }
@@ -171,24 +174,24 @@ namespace Videomax
         static void OpcionGenero(List<Genero> generos)
         {
 
-            Clear();
-            WriteLine("\n**** GENEROS ****");
+            //Clear();
+            WriteLine("\n**** GENEROS ****\n");
 
             for (int i = 0; i < generos.Count; ++i)
             {
-                WriteLine($"{i} --- {generos[i].Descripcion}");
+                WriteLine($"{i}.{generos[i].Descripcion}");
             }
         }
 
         static void OpcionFormato(List<Formato> formatos)
         {
 
-            Clear();
-            WriteLine("\n**** GENEROS ****");
+            //Clear();
+            WriteLine("\n**** FORMATOS ****");
 
             for (int i = 0; i < formatos.Count; ++i)
             {
-                WriteLine($"{i} {formatos[i].Descripcion}");
+                WriteLine($"{i}.{formatos[i].Descripcion}");
             }
 
         }
@@ -232,12 +235,12 @@ namespace Videomax
                             int peliculaID = -1;
                             Write("Escribe el ID (6 dígitos): ");
                             peliculaID = Convert.ToInt32(ReadLine());
-                            if (catalogo.VerifyPelicula(peliculaID))
+                            if (catalogo.ValidarCodigo(peliculaID))
                             {
                                 Pelicula pelicula = catalogo.GetPelicula(peliculaID);
                                 //Preguntar el formato
                                 WriteLine("\nEscoge el formato de la película");
-                                WriteLine("1. DVD \n 2. BlueRay \n 3. hdBlueray");
+                                WriteLine(" 1. DVD \n 2. BlueRay \n 3. hdBlueray");
                                 int EscogerFormato = Convert.ToInt32(ReadLine());
 
                                 switch (EscogerFormato)
@@ -258,7 +261,7 @@ namespace Videomax
                                         catalogo.AgregarInventario(pelicula, 0, 0, uhdBlueray); //Enviar la cantidad 
                                         break;
                                     default:
-                                        WriteLine(" FORMATO INVÁLIDO ");
+                                        WriteLine("***FORMATO INVÁLIDO***");
                                         ReadKey();
                                         break;
                                 }
@@ -268,7 +271,7 @@ namespace Videomax
                             }
                             else
                             {
-                                WriteLine("\n ID DE PELICULA INCORRECTO");
+                                WriteLine("\n***ID DE PELICULA INCORRECTO***");
                                 ReadKey();
                             }
                         }
@@ -281,9 +284,9 @@ namespace Videomax
                             if (catalogo.VerifyTitulo(nombrepelicula))
                             {
                                 Pelicula titulo = catalogo.GetTitulo(nombrepelicula);
-                                WriteLine($"La película encontrada es {titulo}");
+                                WriteLine($"La película encontrada es {titulo.Titulo}");
                                 WriteLine("\nEscoge el formato de la película");
-                                WriteLine("1. DVD \n 2. BlueRay \n 3. hdBlueray");
+                                WriteLine(" 1. DVD \n 2. BlueRay \n 3. hdBlueray");
                                 int EscogerFormato = Convert.ToInt32(ReadLine());
                                 switch (EscogerFormato)
                                 {
@@ -303,20 +306,20 @@ namespace Videomax
                                         catalogo.AgregarInventario(titulo, 0, 0, uhdBlueray); //Enviar la cantidad 
                                         break;
                                     default:
-                                        WriteLine(" FORMATO INVÁLIDO ");
+                                        WriteLine("***FORMATO INVÁLIDO***");
                                         ReadKey();
                                         break;
                                 }
                             }
                             else
                             {
-                                WriteLine("\nPELÍCULA NO ENCONTRADA");
+                                WriteLine("\n***PELÍCULA NO ENCONTRADA***");
                                 ReadKey();
                             }
                         }
                         else
                         {
-                            WriteLine("OPCIÓN NO IMPLEMENTADA");
+                            WriteLine("***OPCIÓN NO IMPLEMENTADA***");
                         }
 
                         break;
@@ -357,27 +360,28 @@ namespace Videomax
             WriteLine("\t\t\t\t\t-------------------------------------");
             WriteLine("\t\t\t\t\t||             VIDEOMAX            ||");
             WriteLine("\t\t\t\t\t-------------------------------------");
-            WriteLine("\t\t\t\t\t               VENTAS                  ");
+            WriteLine("\t\t\t\t\t               VENTAS                 ");
             int op = -1;
             List<Compras> pelis = new List<Compras>();
             List<Inventario> listAux = new List<Inventario>();
             do
             {
                 //Clear();
-                WriteLine("\n\t\t\t\t\t Lista de compras actual");
+                WriteLine("\n\t\t\t\t\tLista de compras actual:");
                 MostrarListadeCompras(pelis);
                 
                 int peliculaId = ObtenerPeliId();
                 string peliculaf = ObtenerPeliFormato();
                 int cantidad = ObtenerCantidad();
-
+                
                 if (!catalogo.ValidarCantidad(peliculaId, peliculaf, cantidad))
                 {
-                    Clear();
+                    //Clear();
+                    MostrarListadeCompras(pelis);
                 comodin: WriteLine("La cantidad escogida supera el inventarios");
-                    WriteLine("\t1. Corregir cantidad");
-                    WriteLine("\t2. Cambiar formato");
-                    WriteLine("\t0. Cancelar compra");
+                    WriteLine("\n\t\t\t\t\t1. Corregir cantidad");
+                    WriteLine("\t\t\t\t\t2. Cambiar formato");
+                    WriteLine("\t\t\t\t\t0. Cancelar compra");
                     WriteLine("\tElige una opcion: ");
                     op = Convert.ToInt32(ReadLine());
 
@@ -400,7 +404,7 @@ namespace Videomax
                         case 0:
                             break;
                         default:
-                            WriteLine("\nOpcion no valida");
+                            WriteLine("\nOpción no válida");
                             ReadKey();
                             break;
                     }
@@ -409,9 +413,9 @@ namespace Videomax
                 {
                     listAux.Add(catalogo.AgregarPelicula1(peliculaId, peliculaf, cantidad));
                     pelis.Add(catalogo.AgregarPelicula(peliculaId, peliculaf, cantidad));
-                    Clear();
+                    MostrarListadeCompras(pelis);
                     WriteLine();
-                    WriteLine("\\t\t\t\t\t1. Seguir agragando peliculas a la lista actual");
+                    WriteLine("\t\t\t\t\t1. Seguir agragando peliculas a la lista actual");
                     WriteLine("\t\t\t\t\t2. Finalizar compra");
                     WriteLine("\t\t\t\t\t0. Cancelar compra");
                     Write("Elige una opcion: ");
@@ -440,12 +444,11 @@ namespace Videomax
         static int ObtenerPeliId()
         {
             WriteLine("\nIngrese el codigo de la pelicula que desea comprar: ");
-            int peliId = Convert.ToInt32(ReadLine());
-
+            int peliId = Convert.ToInt32(ReadLine());            
             while (!catalogo.ValidarCodigo(peliId))
             {
-                Clear();
-                WriteLine("\nCodigo invalido. Por favor ingrese un codigo valido: ");
+                //Clear();
+                WriteLine("\n***Codigo invalido. Por favor ingrese un codigo valido:***");
                 peliId = Convert.ToInt32(ReadLine());
             }
 
@@ -459,8 +462,8 @@ namespace Videomax
 
             while (!catalogo.ValidarFormato(pelif))
             {
-                Clear();
-                WriteLine("\nFormato invalido. Por favor ingrese un formato valido: ");
+                //Clear();
+                WriteLine("\n***Formato invalido. Por favor ingrese un formato valido:*** ");
                 pelif = ReadLine();
             }
 
@@ -474,8 +477,8 @@ namespace Videomax
 
             while (c <= 0)
             {
-                Clear();
-                WriteLine("\nCantidad invalida. Por favor ingrese una cantidad correcta: ");
+               // Clear();
+                WriteLine("\n***Cantidad invalida. Por favor ingrese una cantidad correcta:*** ");
                 c = Convert.ToInt32(ReadLine());
             }
 
@@ -484,13 +487,20 @@ namespace Videomax
 
         static void MostrarListadeCompras(List<Compras> pelis)
         {
+           
             if (pelis.Count == 0)
             {
-                WriteLine("\n\t\t\t\t\tSu lista de compras esta vacia");
+                WriteLine("\n\t\t\t\t\t***Su lista de compras esta vacia***");
             }
             else
             {
-                pelis.ForEach(p => WriteLine($"\t\t\t\t\t{p.pelicula.Titulo} - {p.formato.Descripcion}"));
+                Clear();
+                WriteLine("\t\t\t\t\t-------------------------------------");
+                WriteLine("\t\t\t\t\t||             VIDEOMAX            ||");
+                WriteLine("\t\t\t\t\t-------------------------------------");
+                WriteLine("\t\t\t\t\t           LISTA DE COMPRAS          ");
+                pelis.ForEach(p => WriteLine($"\n\t\t\t\t\t{p.cantidad} - {p.pelicula.Titulo} - {p.formato.Descripcion}"));
+                WriteLine("\t\t\t\t\t-------------------------------------");
             }
         }
         static void FinalizarCompra(List<Compras> pelis, List<Inventario> listAux)
@@ -500,8 +510,9 @@ namespace Videomax
             WriteLine("\t\t\t\t\t||             VIDEOMAX            ||");
             WriteLine("\t\t\t\t\t-------------------------------------");
             WriteLine("\t\t\t\t\t                NOTA                 ");
-            Write("\n\tPeliculas seleccionadas\n\n");
-            pelis.ForEach(p => WriteLine($"{p.pelicula.Titulo} - {p.formato.Descripcion} - {p.cantidad}"));
+            Write("\n\t\t\t\t\tPeliculas seleccionadas\n\n");
+            pelis.ForEach(p => WriteLine($"\t\t\t\t\t{p.pelicula.Titulo} - {p.formato.Descripcion} - {p.cantidad}"));
+            
 
             decimal Total = 0;
 
@@ -509,8 +520,9 @@ namespace Videomax
             Total += Convert.ToDecimal(p.cantidad) * p.formato.Precio);
 
             WriteLine();
-            WriteLine($"\n\tEl total de su compra es: {Total}");
-            Write("\n\nPulse cualquier tecla para confirmar: ");
+            WriteLine($"\n\t\t\t\t\tEl total de su compra es: {Total}");
+            WriteLine("\t\t\t\t\t-------------------------------------");
+            Write("\n\t\t\t\t\tPulse cualquier tecla para confirmar: ");
             ReadKey();
 
             catalogo.ActualizarInventario(listAux);

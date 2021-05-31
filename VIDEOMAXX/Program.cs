@@ -123,6 +123,7 @@ namespace Videomax
                         Write("\nDigite el año máximo:\n");
                         añoMaximo = Convert.ToInt32(ReadLine());
                     }
+                    else { añoMaximo = 3000; }
                     if (añoMinimo > añoMaximo)
                     {
                         Write("\n¡DATOS ERRÓNEOS, INTÉNTELO DE NUEVO!");

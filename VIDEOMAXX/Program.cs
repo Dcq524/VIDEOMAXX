@@ -69,7 +69,7 @@ namespace Videomax
             WriteLine("\t\t\t\t\t-------------------------------------");
             WriteLine("\t\t\t\t\t          BUSCAR PELÍCULAS         ");
             WriteLine("\n\t\t\t\t\tOpciones de filtrado: ");
-            WriteLine("\t\t\t\t\t1. Todo");
+            WriteLine("\t\t\t\t\t1. todo");
             WriteLine("\t\t\t\t\t2. Por género");
             WriteLine("\t\t\t\t\t3. Por formato");
             WriteLine("\t\t\t\t\t4. Por intervalo de años");

@@ -94,8 +94,14 @@ namespace Videomax
                     Write("\n¿De que género le gustaría?:");
                     int generoIndice = Convert.ToInt32(ReadLine());
 
-
-                    OpcionMostrarTodo(catalogo.FindPeliculas(searchmovie.PorGenero, generos[generoIndice].Id));
+                    if (generoIndice > (generos.Count - 1))
+                    {
+                        WriteLine("\n¡OPCIÓN NO VÁLIDA!");
+                    }
+                    else
+                    {
+                        OpcionMostrarTodo(catalogo.FindPeliculas(searchmovie.PorGenero, generos[generoIndice].Id));
+                    }
                     break;
 
                 case searchmovie.PorIntervaloDeAños:
@@ -134,8 +140,15 @@ namespace Videomax
                     Write("\n¿Qué tipo de formato desea?\n");
                     int formatoIndice = Convert.ToInt32(ReadLine());
 
-
-                    OpcionMostrarFormato(catalogo.FindPeliculas(searchmovie.PorFormato, formatoId: formatos[formatoIndice].Id), formatoIndice);
+                    if (formatoIndice > (formatos.Count - 1))
+                    {
+                        WriteLine("\n¡OPCIÓN NO VÁLIDA!");
+                    }
+                    else
+                    {
+                        OpcionMostrarFormato(catalogo.FindPeliculas(searchmovie.PorFormato, formatoId: formatos[formatoIndice].Id), formatoIndice);
+                    }
+                        
                     break;
 
                 default:
